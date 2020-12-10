@@ -53,11 +53,6 @@ namespace BugNET.BLL
             if (HostSettingManager.Get(HostSettingNames.AttachmentStorageType, 0) == (int)IssueAttachmentStorageTypes.FileSystem)
             {
                 var uploadPath = string.Concat(HostSettingManager.Get(HostSettingNames.AttachmentUploadPath), entity.UploadPath);
-                if(uploadPath.StartsWith("~"))
-                {
-                    uploadPath = HttpContext.Current.Server.MapPath(uploadPath);
-                }
-
 
                 try
                 {
@@ -65,6 +60,11 @@ namespace BugNET.BLL
                     // Better santization of Upload Paths
                     if (!Utilities.CheckUploadPath(uploadPath))
                         throw new InvalidDataException(LoggingManager.GetErrorMessageResource("UploadPathInvalid"));
+
+                    if (uploadPath.StartsWith("~"))
+                    {
+                        uploadPath = HttpContext.Current.Server.MapPath(uploadPath);
+                    }
 
                     Directory.CreateDirectory(uploadPath);
                 }

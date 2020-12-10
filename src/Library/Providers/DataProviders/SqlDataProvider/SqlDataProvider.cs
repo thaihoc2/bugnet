@@ -1155,7 +1155,7 @@ namespace BugNET.Providers.DataProviders
 
             using (var sqlCmd = new SqlCommand())
             {
-                AddParamToSqlCmd(sqlCmd, "@ReturnValue", SqlDbType.Int, 0, ParameterDirection.ReturnValue, null);
+                AddParamToSqlCmd(sqlCmd, "@Return_Value", SqlDbType.Int, 0, ParameterDirection.ReturnValue, null);
                 AddParamToSqlCmd(sqlCmd, "@AllowAttachments", SqlDbType.Bit, 0, ParameterDirection.Input, newProject.AllowAttachments);
                 AddParamToSqlCmd(sqlCmd, "@ProjectName", SqlDbType.NText, 256, ParameterDirection.Input, newProject.Name);
                 AddParamToSqlCmd(sqlCmd, "@ProjectDescription", SqlDbType.NText, 1000, ParameterDirection.Input, newProject.Description);
@@ -1185,7 +1185,7 @@ namespace BugNET.Providers.DataProviders
 
                 SetCommandType(sqlCmd, CommandType.StoredProcedure, SP_PROJECT_CREATE);
                 ExecuteScalarCmd(sqlCmd);
-                return ((int)sqlCmd.Parameters["@ReturnValue"].Value);   
+                return ((int)sqlCmd.Parameters["@Return_Value"].Value);   
             }
         }
 
