@@ -275,9 +275,18 @@ namespace BugNET.Providers.DataProviders
             while (returnData.Read())
             {
                 var user = new ITUser((Guid)returnData["UserId"], (string)returnData["UserName"],
-                                      (string)returnData["DisplayName"], (string)returnData["Email"]);
+                                      (string)returnData["DisplayName"], (string)(GetData(returnData, "Email")));
                 userList.Add(user);
             }
+        }
+
+        private static object GetData(SqlDataReader returnData, string propertyName)
+        {
+            if(returnData.HasColumn("returnData"))
+            {
+                return returnData[propertyName];
+            }
+            return null;
         }
 
         /// <summary>
