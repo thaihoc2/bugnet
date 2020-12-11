@@ -282,7 +282,7 @@ namespace BugNET.Providers.DataProviders
 
         private static object GetData(SqlDataReader returnData, string propertyName)
         {
-            if(returnData.HasColumn("returnData"))
+            if(returnData.HasColumn(propertyName))
             {
                 return returnData[propertyName];
             }
